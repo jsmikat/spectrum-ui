@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react";
-import Copy from "../copy";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,11 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
@@ -22,44 +26,46 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Bell,
   Calendar,
   Check,
-  Clock,
   Cloud,
   CreditCard,
+  DollarSign,
   Download,
-  Heart,
   LucideBarChart,
   LucideLineChart,
   LucidePieChart,
-  Mail,
   Map,
-  MessageSquare,
   Mic,
   Moon,
   Music,
   Phone,
   Search,
-  Settings,
   Star,
   Sun,
+  TrendingUp,
+  Users,
   Zap,
 } from "lucide-react";
-import { DollarSign, PieChart, TrendingUp, Users } from "lucide-react";
+import { useState } from "react";
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
-import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis } from "recharts";
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  PolarAngleAxis,
+  PolarGrid,
+  Radar,
+  RadarChart,
+  XAxis,
+} from "recharts";
+import Copy from "../copy";
 
 export default function CardCollection() {
   const cardComponents = [
@@ -245,7 +251,7 @@ export default function CardCollection() {
     )
   }`,
     },
-   
+
     {
       name: "SettingsCard",
       component: SettingsCard,
@@ -706,8 +712,7 @@ export default function CardCollection() {
     )
   }`,
     },
-    
-   
+
     {
       name: "TeamCollaborationCard",
       component: TeamCollaborationCard,
@@ -801,7 +806,7 @@ export default function CardCollection() {
     )
   }`,
     },
-    
+
     {
       name: "ProductivityTrackerCard",
       component: ProductivityTrackerCard,
@@ -1466,17 +1471,16 @@ function QuickNoteCard() {
     },
   ];
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12  grid-cols-1 ml-2">
-    {cardComponents.map(({ name, component: CardComponent, code }) => (
-      <div key={name} className="relative group">
-        <CardComponent />
-        <div className="absolute top-1 right-5 hidden group-hover:flex">
-          <Copy content={code} />
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-12 grid-cols-1 ml-2">
+      {cardComponents.map(({ name, component: CardComponent, code }) => (
+        <div key={name} className="relative group">
+          <CardComponent />
+          <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+            <Copy content={code} />
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-  
+      ))}
+    </div>
   );
 }
 
@@ -1780,7 +1784,7 @@ export function TaskCard() {
     <Card className="w-[310px]">
       <CardHeader>
         <CardTitle>Current Tasks</CardTitle>
-        <CardDescription>Your team's ongoing tasks</CardDescription>
+        <CardDescription>Your team&apos;s ongoing tasks</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -1796,15 +1800,15 @@ export function TaskCard() {
                     index === 0
                       ? "default"
                       : index === 1
-                      ? "secondary"
-                      : "outline"
+                        ? "secondary"
+                        : "outline"
                   }
                 >
                   {index === 0
                     ? "In Progress"
                     : index === 1
-                    ? "Pending"
-                    : "Completed"}
+                      ? "Pending"
+                      : "Completed"}
                 </Badge>
               </div>
             )
@@ -1952,9 +1956,7 @@ export function AIAssistantCard() {
           <div
             key={index}
             className={`mb-2 ${
-              msg.role === "ai"
-                ? "text-blue-600 text-left"
-                : "text-right"
+              msg.role === "ai" ? "text-blue-600 text-left" : "text-right"
             }`}
           >
             <strong>{msg.role === "ai" ? "AI: " : "You: "}</strong>
@@ -2518,7 +2520,7 @@ export function DataVisualizationCard() {
     }
   };
   return (
-    <Card className="w-full max-w-3xl mx-auto">
+    <Card className="w-[310px]">
       <CardHeader>
         <CardTitle>Data Visualization</CardTitle>
         <CardDescription>Interactive chart types</CardDescription>
