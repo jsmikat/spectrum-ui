@@ -251,77 +251,289 @@ export default function CardCollection() {
     )
   }`,
     },
+    {
+      name: "LocationCard",
+      component: LocationCard,
+      code: `
+ function LocationCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-sm font-medium">Current Location</CardTitle>
+        <Map className="w-4 h-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <div className="font-semibold">San Francisco</div>
+        <p className="text-xs text-muted-foreground">California, USA</p>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
+    },
+    {
+      name: "VoiceCommandCard",
+      component: VoiceCommandCard,
+      code: `
+ function VoiceCommandCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm">Voice Command</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 flex justify-center">
+        <Button variant="outline" size="lg" className="rounded-full">
+          <Mic className="h-6 w-6" />
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
+    },
+    {
+      name: "DownloadProgressCard",
+      component: DownloadProgressCard,
+      code: `
+ function DownloadProgressCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-sm font-medium">Download Progress</CardTitle>
+        <Download className="w-4 h-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <Progress value={40} className="w-full" />
+        <p className="text-xs text-muted-foreground mt-2">
+          2 of 5 files downloaded
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
+    },
+    {
+      name: "ThemeToggleCard",
+      component: ThemeToggleCard,
+      code: `
+ function ThemeToggleCard() {
+  const [isDark, setIsDark] = useState(false);
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm">Theme</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <Sun className="h-4 w-4" />
+          <Label>Light</Label>
+        </div>
+        <Switch checked={isDark} onCheckedChange={setIsDark} />
+        <div className="flex items-center space-x-2">
+          <Label>Dark</Label>
+          <Moon className="h-4 w-4" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
+    },
+    {
+      name: "QuickRatingCard",
+      component: QuickRatingCard,
+      code: `
+      function QuickRatingCard() {
+  const [starRating, setStarRating] = useState(0);
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm">Rate Your Experience</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 flex justify-between">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Button
+            key={star}
+            variant="ghost"
+            size="sm"
+            onClick={() => setStarRating(star)}
+          >
+            <Star
+              className="h-4 w-4 
+                starRating >= star ? "text-yellow-500" : "text-gray-400"
+              "
+            />
+          </Button>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
+      
+       
+  `,
+    },
 
     {
-      name: "SettingsCard",
-      component: SettingsCard,
+      name: "MetricsCard",
+      component: MetricsCard,
       code: `
-  function SettingsCard() {
-    const [activeTab, setActiveTab] = useState("account")
-  
+  function MetricsCard() {
     return (
       <Card className="w-[310px]">
         <CardHeader>
-          <CardTitle>Settings</CardTitle>
-          <CardDescription>
-            Manage your account settings and preferences.
-          </CardDescription>
+          <CardTitle>Metrics Overview</CardTitle>
+          <CardDescription>Your key performance indicators</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            </TabsList>
-            <TabsContent value="account">
-              <div className="space-y-4 py-2 ">
-                <div className="space-y-2 mt-5">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" placeholder="Enter username" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Enter email" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="language">Language</Label>
-                  <Select>
-                    <SelectTrigger id="language">
-                      <SelectValue placeholder="Select language" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="fr">French</SelectItem>
-                      <SelectItem value="de">German</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+          <div className="space-y-8">
+            <div className="flex items-center">
+              <Users className="mr-4 h-4 w-4 text-muted-foreground" />
+              <div className="space-y-1 flex-1">
+                <p className="text-sm font-medium leading-none">Total Users</p>
+                <p className="text-2xl font-bold">2,543</p>
               </div>
-            </TabsContent>
-            <TabsContent value="notifications">
-              <div className="space-y-4 py-2">
-                <div className="flex items-center space-x-2">
-                  <Switch id="emailNotifications" />
-                  <Label htmlFor="emailNotifications">Email Notifications</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch id="pushNotifications" />
-                  <Label htmlFor="pushNotifications">Push Notifications</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch id="weeklyDigest" />
-                  <Label htmlFor="weeklyDigest">Weekly Digest</Label>
-                </div>
+              <Badge variant="secondary">+12%</Badge>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <div>Revenue</div>
+                <div className="font-medium">$45,231.89</div>
               </div>
-            </TabsContent>
-          </Tabs>
+              <Progress value={75} className="h-2" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <BarChart className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">
+                  Conversion Rate
+                </span>
+              </div>
+              <div className="text-2xl font-bold">3.8%</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }`,
+    },
+    {
+      name: "QuickExpenseCard",
+      component: QuickExpenseCard,
+      code: `
+  function QuickExpenseCard() {
+    return (
+      <Card className="w-[310px]">
+        <CardHeader>
+          <CardTitle>Quick Expense</CardTitle>
+          <CardDescription>Add a new expense quickly</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="amount">Amount</Label>
+              <Input
+                id="amount"
+                placeholder="Enter amount"
+                type="number"
+                step="0.01"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category">Category</Label>
+              <Select>
+                <SelectTrigger id="category">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="food">Food</SelectItem>
+                  <SelectItem value="transport">Transport</SelectItem>
+                  <SelectItem value="utilities">Utilities</SelectItem>
+                  <SelectItem value="entertainment">Entertainment</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="date">Date</Label>
+              <Input id="date" type="date" />
+            </div>
+          </form>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">Save Changes</Button>
+          <Button className="w-full">Add Expense</Button>
         </CardFooter>
       </Card>
     )
   }`,
+    },
+
+    {
+      name: "DeviceStatusCard",
+      component: DeviceStatusCard,
+      code: `
+ function DeviceStatusCard() {
+    return (
+      <Card className="w-[310px]">
+        <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+          <CardTitle className="text-sm font-medium">Device Status</CardTitle>
+          <Zap className="w-4 h-4 text-yellow-500" />
+        </CardHeader>
+        <CardContent className="p-4 pt-0">
+          <div className="text-2xl font-bold">85%</div>
+          <p className="text-xs text-muted-foreground">Battery remaining</p>
+        </CardContent>
+      </Card>
+    );
+  }
+  }`,
+    },
+    {
+      name: "QuickPollCard",
+      component: QuickPollCard,
+      code: `
+  function QuickPollCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm">Quick Poll</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0 space-y-2">
+        <div className="text-sm font-medium">Favorite feature?</div>
+        {["Dashboard", "Reports", "Settings"].map((option, index) => (
+          <div key={index} className="flex items-center space-x-2">
+            <input type="radio" id={option} name="poll" className="radio" />
+            <Label htmlFor={option}>{option}</Label>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+  `,
+    },
+    {
+      name: "DataUsageCard",
+      component: DataUsageCard,
+      code: `
+  function DataUsageCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
+        <CardTitle className="text-sm font-medium">Data Usage</CardTitle>
+        <Cloud className="w-4 h-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <Progress value={75} className="w-full" />
+        <p className="text-xs text-muted-foreground mt-2">
+          7.5 GB of 10 GB used
+        </p>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
     },
     {
       name: "DataVisualizationCard",
@@ -398,7 +610,7 @@ export default function CardCollection() {
     }
   
     return (
-      <Card className="w-full max-w-3xl mx-auto">
+      <Card className="w-[310px]">
         <CardHeader>
           <CardTitle>Data Visualization</CardTitle>
           <CardDescription>Interactive chart types</CardDescription>
@@ -452,47 +664,25 @@ export default function CardCollection() {
   }`,
     },
     {
-      name: "MetricsCard",
-      component: MetricsCard,
+      name: "QuickNoteCard",
+      component: QuickNoteCard,
       code: `
-  function MetricsCard() {
-    return (
-      <Card className="w-[310px]">
-        <CardHeader>
-          <CardTitle>Metrics Overview</CardTitle>
-          <CardDescription>Your key performance indicators</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-8">
-            <div className="flex items-center">
-              <Users className="mr-4 h-4 w-4 text-muted-foreground" />
-              <div className="space-y-1 flex-1">
-                <p className="text-sm font-medium leading-none">Total Users</p>
-                <p className="text-2xl font-bold">2,543</p>
-              </div>
-              <Badge variant="secondary">+12%</Badge>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-sm">
-                <div>Revenue</div>
-                <div className="font-medium">$45,231.89</div>
-              </div>
-              <Progress value={75} className="h-2" />
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <BarChart className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">
-                  Conversion Rate
-                </span>
-              </div>
-              <div className="text-2xl font-bold">3.8%</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }`,
+function QuickNoteCard() {
+  return (
+    <Card className="w-[310px]">
+      <CardHeader className="p-4">
+        <CardTitle className="text-sm">Quick Note</CardTitle>
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <textarea
+          className="w-full h-20 text-sm resize-none border rounded-md p-2"
+          placeholder="Type your note here..."
+        ></textarea>
+      </CardContent>
+    </Card>
+  );
+}
+  `,
     },
     {
       name: "SubscriptionCard",
@@ -629,6 +819,150 @@ export default function CardCollection() {
             View Full Calendar
           </Button>
         </CardFooter>
+      </Card>
+    )
+  }`,
+    },
+
+    {
+      name: "QuickActionCard",
+      component: QuickActionCard,
+      code: `
+  function QuickActionCard() {
+    return (
+      <Card className="w-[310px]">
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+          <CardDescription>Frequently used actions</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { icon: Mail, label: "Send Email" },
+              { icon: Calendar, label: "Schedule Meeting" },
+              { icon: MessageSquare, label: "Start Chat" },
+              { icon: Settings, label: "Open Settings" },
+            ].map((action, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                className="h-20 flex-col space-y-2"
+              >
+                <action.icon className="h-6 w-6" />
+                <span>{action.label}</span>
+              </Button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }`,
+    },
+    {
+      name: "NotificationCard",
+      component: NotificationCard,
+      code: `
+  function NotificationCard() {
+    const notifications = [
+      {
+        icon: Mail,
+        content: "You have 3 new emails",
+        time: "5 min ago",
+      },
+      {
+        icon: Bell,
+        content: "Meeting reminder: Team sync at 2 PM",
+        time: "1 hour ago",
+      },
+      {
+        icon: MessageSquare,
+        content: "New comment on your post",
+        time: "2 hours ago",
+      },
+    ]
+  
+    return (
+      <Card className="w-[310px]">
+        <CardHeader>
+          <CardTitle>Notifications</CardTitle>
+          <CardDescription>Stay updated with recent activities</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {notifications.map((notification, index) => (
+              <div key={index} className="flex items-start space-x-4">
+                <notification.icon className="h-5 w-5 mt-0.5 text-muted-foreground" />
+                <div className="space-y-1">
+                  <p className="text-sm">{notification.content}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {notification.time}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button variant="ghost" className="w-full">
+            View All Notifications
+          </Button>
+        </CardFooter>
+      </Card>
+    )
+  }`,
+    },
+    {
+      name: "WeatherMiniCard",
+      component: WeatherMiniCard,
+      code: `
+  function WeatherMiniCard() {
+    return (
+      <Card className="w-[200px]">
+        <CardContent className="p-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="text-sm font-medium">San Francisco</p>
+              <p className="text-2xl font-bold">72°F</p>
+            </div>
+            <div className="text-4xl">☀️</div>
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">Sunny</p>
+        </CardContent>
+      </Card>
+    )
+  }`,
+    },
+    {
+      name: "QuickSettingsCard",
+      component: QuickSettingsCard,
+      code: `
+  function QuickSettingsCard() {
+    return (
+      <Card className="w-[310px]">
+        <CardHeader>
+          <CardTitle>Quick Settings</CardTitle>
+          <CardDescription>Adjust your preferences</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="airplane-mode">Airplane Mode</Label>
+              <Switch id="airplane-mode" />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="wifi">Wi-Fi</Label>
+              <Switch id="wifi" />
+            </div>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="bluetooth">Bluetooth</Label>
+              <Switch id="bluetooth" />
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="volume">Volume</Label>
+              <Slider id="volume" defaultValue={[50]} max={100} step={1} />
+            </div>
+          </div>
+        </CardContent>
       </Card>
     )
   }`,
@@ -858,149 +1192,6 @@ export default function CardCollection() {
   }`,
     },
     {
-      name: "QuickActionCard",
-      component: QuickActionCard,
-      code: `
-  function QuickActionCard() {
-    return (
-      <Card className="w-[310px]">
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>Frequently used actions</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { icon: Mail, label: "Send Email" },
-              { icon: Calendar, label: "Schedule Meeting" },
-              { icon: MessageSquare, label: "Start Chat" },
-              { icon: Settings, label: "Open Settings" },
-            ].map((action, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                className="h-20 flex-col space-y-2"
-              >
-                <action.icon className="h-6 w-6" />
-                <span>{action.label}</span>
-              </Button>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }`,
-    },
-    {
-      name: "NotificationCard",
-      component: NotificationCard,
-      code: `
-  function NotificationCard() {
-    const notifications = [
-      {
-        icon: Mail,
-        content: "You have 3 new emails",
-        time: "5 min ago",
-      },
-      {
-        icon: Bell,
-        content: "Meeting reminder: Team sync at 2 PM",
-        time: "1 hour ago",
-      },
-      {
-        icon: MessageSquare,
-        content: "New comment on your post",
-        time: "2 hours ago",
-      },
-    ]
-  
-    return (
-      <Card className="w-[310px]">
-        <CardHeader>
-          <CardTitle>Notifications</CardTitle>
-          <CardDescription>Stay updated with recent activities</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {notifications.map((notification, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <notification.icon className="h-5 w-5 mt-0.5 text-muted-foreground" />
-                <div className="space-y-1">
-                  <p className="text-sm">{notification.content}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {notification.time}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button variant="ghost" className="w-full">
-            View All Notifications
-          </Button>
-        </CardFooter>
-      </Card>
-    )
-  }`,
-    },
-    {
-      name: "WeatherMiniCard",
-      component: WeatherMiniCard,
-      code: `
-  function WeatherMiniCard() {
-    return (
-      <Card className="w-[200px]">
-        <CardContent className="p-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm font-medium">San Francisco</p>
-              <p className="text-2xl font-bold">72°F</p>
-            </div>
-            <div className="text-4xl">☀️</div>
-          </div>
-          <p className="text-xs text-muted-foreground mt-2">Sunny</p>
-        </CardContent>
-      </Card>
-    )
-  }`,
-    },
-    {
-      name: "QuickSettingsCard",
-      component: QuickSettingsCard,
-      code: `
-  function QuickSettingsCard() {
-    return (
-      <Card className="w-[310px]">
-        <CardHeader>
-          <CardTitle>Quick Settings</CardTitle>
-          <CardDescription>Adjust your preferences</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="airplane-mode">Airplane Mode</Label>
-              <Switch id="airplane-mode" />
-            </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor="wifi">Wi-Fi</Label>
-              <Switch id="wifi" />
-            </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor="bluetooth">Bluetooth</Label>
-              <Switch id="bluetooth" />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="volume">Volume</Label>
-              <Slider id="volume" defaultValue={[50]} max={100} step={1} />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }`,
-    },
-    {
       name: "MusicPlayerCard",
       component: MusicPlayerCard,
       code: `
@@ -1120,6 +1311,77 @@ export default function CardCollection() {
   }`,
     },
     {
+      name: "SettingsCard",
+      component: SettingsCard,
+      code: `
+  function SettingsCard() {
+    const [activeTab, setActiveTab] = useState("account")
+  
+    return (
+      <Card className="w-[310px]">
+        <CardHeader>
+          <CardTitle>Settings</CardTitle>
+          <CardDescription>
+            Manage your account settings and preferences.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="account">Account</TabsTrigger>
+              <TabsTrigger value="notifications">Notifications</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">
+              <div className="space-y-4 py-2 ">
+                <div className="space-y-2 mt-5">
+                  <Label htmlFor="username">Username</Label>
+                  <Input id="username" placeholder="Enter username" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" type="email" placeholder="Enter email" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="language">Language</Label>
+                  <Select>
+                    <SelectTrigger id="language">
+                      <SelectValue placeholder="Select language" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="en">English</SelectItem>
+                      <SelectItem value="fr">French</SelectItem>
+                      <SelectItem value="de">German</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="notifications">
+              <div className="space-y-4 py-2">
+                <div className="flex items-center space-x-2">
+                  <Switch id="emailNotifications" />
+                  <Label htmlFor="emailNotifications">Email Notifications</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch id="pushNotifications" />
+                  <Label htmlFor="pushNotifications">Push Notifications</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Switch id="weeklyDigest" />
+                  <Label htmlFor="weeklyDigest">Weekly Digest</Label>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full">Save Changes</Button>
+        </CardFooter>
+      </Card>
+    )
+  }`,
+    },
+    {
       name: "UpcomingEventCard",
       component: UpcomingEventCard,
       code: `
@@ -1161,142 +1423,7 @@ export default function CardCollection() {
     )
   }`,
     },
-    {
-      name: "QuickExpenseCard",
-      component: QuickExpenseCard,
-      code: `
-  function QuickExpenseCard() {
-    return (
-      <Card className="w-[310px]">
-        <CardHeader>
-          <CardTitle>Quick Expense</CardTitle>
-          <CardDescription>Add a new expense quickly</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="amount">Amount</Label>
-              <Input
-                id="amount"
-                placeholder="Enter amount"
-                type="number"
-                step="0.01"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-              <Select>
-                <SelectTrigger id="category">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="food">Food</SelectItem>
-                  <SelectItem value="transport">Transport</SelectItem>
-                  <SelectItem value="utilities">Utilities</SelectItem>
-                  <SelectItem value="entertainment">Entertainment</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="date">Date</Label>
-              <Input id="date" type="date" />
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <Button className="w-full">Add Expense</Button>
-        </CardFooter>
-      </Card>
-    )
-  }`,
-    },
-    {
-      name: "DeviceStatusCard",
-      component: DeviceStatusCard,
-      code: `
- function DeviceStatusCard() {
-    return (
-      <Card className="w-[310px]">
-        <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
-          <CardTitle className="text-sm font-medium">Device Status</CardTitle>
-          <Zap className="w-4 h-4 text-yellow-500" />
-        </CardHeader>
-        <CardContent className="p-4 pt-0">
-          <div className="text-2xl font-bold">85%</div>
-          <p className="text-xs text-muted-foreground">Battery remaining</p>
-        </CardContent>
-      </Card>
-    );
-  }
-  }`,
-    },
-    {
-      name: "QuickPollCard",
-      component: QuickPollCard,
-      code: `
-  function QuickPollCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">Quick Poll</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 pt-0 space-y-2">
-        <div className="text-sm font-medium">Favorite feature?</div>
-        {["Dashboard", "Reports", "Settings"].map((option, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            <input type="radio" id={option} name="poll" className="radio" />
-            <Label htmlFor={option}>{option}</Label>
-          </div>
-        ))}
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "DataUsageCard",
-      component: DataUsageCard,
-      code: `
-  function DataUsageCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-medium">Data Usage</CardTitle>
-        <Cloud className="w-4 h-4 text-muted-foreground" />
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <Progress value={75} className="w-full" />
-        <p className="text-xs text-muted-foreground mt-2">
-          7.5 GB of 10 GB used
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "QuickNoteCard",
-      component: QuickNoteCard,
-      code: `
-function QuickNoteCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">Quick Note</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <textarea
-          className="w-full h-20 text-sm resize-none border rounded-md p-2"
-          placeholder="Type your note here..."
-        ></textarea>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
+
     {
       name: "SocialShareCard",
       component: SocialShareCard,
@@ -1345,141 +1472,78 @@ function QuickNoteCard() {
 }
   `,
     },
-    {
-      name: "LocationCard",
-      component: LocationCard,
-      code: `
- function LocationCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-medium">Current Location</CardTitle>
-        <Map className="w-4 h-4 text-muted-foreground" />
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <div className="font-semibold">San Francisco</div>
-        <p className="text-xs text-muted-foreground">California, USA</p>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "VoiceCommandCard",
-      component: VoiceCommandCard,
-      code: `
- function VoiceCommandCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">Voice Command</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 pt-0 flex justify-center">
-        <Button variant="outline" size="lg" className="rounded-full">
-          <Mic className="h-6 w-6" />
-        </Button>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "DownloadProgressCard",
-      component: DownloadProgressCard,
-      code: `
- function DownloadProgressCard() {
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4 flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="text-sm font-medium">Download Progress</CardTitle>
-        <Download className="w-4 h-4 text-muted-foreground" />
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <Progress value={40} className="w-full" />
-        <p className="text-xs text-muted-foreground mt-2">
-          2 of 5 files downloaded
-        </p>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "ThemeToggleCard",
-      component: ThemeToggleCard,
-      code: `
- function ThemeToggleCard() {
-  const [isDark, setIsDark] = useState(false);
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">Theme</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 pt-0 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Sun className="h-4 w-4" />
-          <Label>Light</Label>
-        </div>
-        <Switch checked={isDark} onCheckedChange={setIsDark} />
-        <div className="flex items-center space-x-2">
-          <Label>Dark</Label>
-          <Moon className="h-4 w-4" />
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-  `,
-    },
-    {
-      name: "QuickRatingCard",
-      component: QuickRatingCard,
-      code: `
-      function QuickRatingCard() {
-  const [starRating, setStarRating] = useState(0);
-  return (
-    <Card className="w-[310px]">
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">Rate Your Experience</CardTitle>
-      </CardHeader>
-      <CardContent className="p-4 pt-0 flex justify-between">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Button
-            key={star}
-            variant="ghost"
-            size="sm"
-            onClick={() => setStarRating(star)}
-          >
-            <Star
-              className="h-4 w-4 
-                starRating >= star ? "text-yellow-500" : "text-gray-400"
-              "
-            />
-          </Button>
-        ))}
-      </CardContent>
-    </Card>
-  );
-}
-
-      
-       
-  `,
-    },
   ];
+
+  const third = Math.ceil(cardComponents.length / 3);
+  const half = Math.ceil(cardComponents.length / 2);
+
+  // For 3 columns (xl)
+  const firstPart = cardComponents.slice(0, third);
+  const secondPart = cardComponents.slice(third, 2 * third);
+  const thirdPart = cardComponents.slice(2 * third);
+
+  // For 2 columns (lg)
+  const firstPartLg = cardComponents.slice(0, half);
+  const secondPartLg = cardComponents.slice(half);
+
   return (
     <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-12 grid-cols-1 ml-2">
-      {cardComponents.map(({ name, component: CardComponent, code }) => (
-        <div key={name} className="relative group">
-          <CardComponent />
-          <div className="absolute top-2 left-[262px] hidden group-hover:flex">
-            <Copy content={code} />
-          </div>
+      <div className="flex flex-col gap-12">
+        <div className="xl:block lg:hidden">
+          {firstPart.map(({ name, component: CardComponent, code }) => (
+            <div key={name} className="relative group mb-12">
+              <CardComponent />
+              <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+                <Copy content={code} />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+        <div className="xl:hidden lg:block">
+          {firstPartLg.map(({ name, component: CardComponent, code }) => (
+            <div key={name} className="relative group mb-12">
+              <CardComponent />
+              <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+                <Copy content={code} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-12">
+        <div className="xl:block lg:hidden">
+          {secondPart.map(({ name, component: CardComponent, code }) => (
+            <div key={name} className="relative group mb-12">
+              <CardComponent />
+              <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+                <Copy content={code} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="xl:hidden lg:block">
+          {secondPartLg.map(({ name, component: CardComponent, code }) => (
+            <div key={name} className="relative group mb-12">
+              <CardComponent />
+              <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+                <Copy content={code} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="xl:flex flex-col gap-12 lg:hidden">
+        {thirdPart.map(({ name, component: CardComponent, code }) => (
+          <div key={name} className="relative group">
+            <CardComponent />
+            <div className="absolute top-2 left-[262px] hidden group-hover:flex">
+              <Copy content={code} />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
