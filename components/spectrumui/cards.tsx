@@ -1487,11 +1487,11 @@ function QuickNoteCard() {
   const secondPartLg = cardComponents.slice(half);
 
   return (
-    <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-12 grid-cols-1 ml-2">
-      <div className="flex flex-col gap-12">
+    <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-8 grid-cols-1 ml-2">
+      <div className="flex flex-col gap-8">
         <div className="xl:block lg:hidden">
           {firstPart.map(({ name, component: CardComponent, code }) => (
-            <div key={name} className="relative group mb-12">
+            <div key={name} className="relative group mb-8">
               <CardComponent />
               <div className="absolute top-2 left-[262px] hidden group-hover:flex">
                 <Copy content={code} />
@@ -1501,7 +1501,7 @@ function QuickNoteCard() {
         </div>
         <div className="xl:hidden lg:block">
           {firstPartLg.map(({ name, component: CardComponent, code }) => (
-            <div key={name} className="relative group mb-12">
+            <div key={name} className="relative group mb-8">
               <CardComponent />
               <div className="absolute top-2 left-[262px] hidden group-hover:flex">
                 <Copy content={code} />
@@ -1511,10 +1511,10 @@ function QuickNoteCard() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-8">
         <div className="xl:block lg:hidden">
           {secondPart.map(({ name, component: CardComponent, code }) => (
-            <div key={name} className="relative group mb-12">
+            <div key={name} className="relative group mb-8">
               <CardComponent />
               <div className="absolute top-2 left-[262px] hidden group-hover:flex">
                 <Copy content={code} />
@@ -1524,7 +1524,7 @@ function QuickNoteCard() {
         </div>
         <div className="xl:hidden lg:block">
           {secondPartLg.map(({ name, component: CardComponent, code }) => (
-            <div key={name} className="relative group mb-12">
+            <div key={name} className="relative group mb-8">
               <CardComponent />
               <div className="absolute top-2 left-[262px] hidden group-hover:flex">
                 <Copy content={code} />
@@ -1534,7 +1534,7 @@ function QuickNoteCard() {
         </div>
       </div>
 
-      <div className="xl:flex flex-col gap-12 lg:hidden">
+      <div className="xl:flex flex-col gap-8 lg:hidden">
         {thirdPart.map(({ name, component: CardComponent, code }) => (
           <div key={name} className="relative group">
             <CardComponent />
